@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <title>Third-Party Impact Analysis</title>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="../css/main.css"/>
+        <script src="../js/main.js" defer></script>
+    </head>
+    <body>
+        <div id="container">
+            <form id="domain-selection" action="/submitDomains" method="POST">
+                <input type="hidden" name="original-testid" id="original-testid">
+                <input type="hidden" name="original-url" id="original-url">
+                <input type="hidden" name="location" id="original-location">
+                <input type="hidden" name="connectivity" id="original-connectivity">
+            <div id="header">
+                <h1 id="home-link" class="clicky">Third-Party Impact Analysis</a></h1>
+                <h3>Third-party domain selection for <span id="test-url"></span></h3>
+                <p class="subtitle"><span class="test-details" id="test-from"></span> on <span class="test-details" id="test-run-at"></span></p>
+            </div>
+            <div id="body">
+                <div id="button-container" class="center">
+                    <button type="submit" id="run" title="Select at least one third-party for analysis" class="btn btn-lg">Run Analysis</button>
+                </div>
+                <table id="domains" class="slim wide domains hover alt-rows">
+                    <tr><th>Domain</th><th>Bytes</th><th>Requests</th><th>Connections</th><th>CPU (total)</th><th>CPU (before interactive)</th><th>Include in Analysis</th></tr>
+                </table>
+            </div>
+            <div id="footer">
+                Made by <a href="https://twitter.com/simonhearne">Simon</a> • Fork on <a href="https://github.com/simonhearne/third-party-impact">GitHub</a>
+            </div>
+            </form>
+        </div>
+        <div id="waiting">Please wait a second...</div>
+        <script>
+            window.onload = () => {
+                var live_updates = true;
+                window.wpt = {testId:getParameterByName('test')};
+                if (window.wpt.testId==undefined) {
+                    alert("No test parameter provided, maybe a bad link?\nSending you back to the homepage.");
+                    window.location.href = window.location.href.substring(0,window.location.href.lastIndexOf("/")).replace("render","");
+                }
+                document.getElementById("home-link").addEventListener("click",()=>{window.location = "/" });
+                getTestInfo(window.wpt.testId)
+                .then((data) => parseResults(data)
+                    .then(() => getDomains()
+                        .then(() => showDomains()
+                            .then(() => hideWaiting()
+                            )
+                        )
+                    )
+                )
+            }
+        </script>
+    </body>
+</html>

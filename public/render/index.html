@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <title>Third-Party Impact Analysis</title>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="../css/main.css"/>
+        <script src="../js/main.js" defer></script>
+    </head>
+    <body>
+        <div id="container">
+            <form id="domain-selection" action="/submitDomains" method="POST">
+                <input type="hidden" name="original-testid" id="original-testid">
+                <input type="hidden" name="original-url" id="original-url">
+                <input type="hidden" name="location" id="original-location">
+                <input type="hidden" name="connectivity" id="original-connectivity">
+            <div id="header">
+                <h1 id="home-link" class="clicky">Third-Party Impact Analysis</a></h1>
+                <h3>Results for <span id="test-url"></span></h3>
+                <p class="subtitle">You can close this tab and come back later!</p>
+            </div>
+            <div id="body">
+                <div id="tables">
+                    <table id="status" class="slim wide alt-rows hidden">
+                        <tr><th>Blocked Domains</th><th>Test Status</th></tr>
+                    </table>
+                    <table id="results" class="slim wide alt-rows hidden">
+                    </table>
+                </div>
+                <div id="links"></div>
+            </div>
+            <p class="subtitle"><span id="test-from"></span> on <span id="test-run-at"></span></p>
+            <div id="footer">
+                Made by <a href="https://twitter.com/simonhearne">Simon</a> • Fork on <a href="https://github.com/simonhearne/third-party-impact">GitHub</a>
+            </div>
+            </form>
+        </div>
+        <div id="waiting">Please wait a second...</div>
+        <script>
+            window.onload = () => {
+                var live_updates = true;
+                window.wpt = {testId:getParameterByName('test')};
+                if (window.wpt.testId==undefined) {
+                    alert("No test parameter provided, maybe a bad link?\nSending you back to the homepage.");
+                    window.location.href = window.location.href.substring(0,window.location.href.lastIndexOf("/")).replace("render","");
+                }
+                document.getElementById("home-link").addEventListener("click",()=>{window.location = "/" });
+                getTestInfo(window.wpt.testId)
+                .then((data) => parseResults(data)
+                    .then(() => getBlocks(window.wpt.testId)
+                        .then(() => updateStatus()
+                            .then(() => {
+                                document.getElementById("waiting").classList.add("hidden");
+                                statusLoop();
+                            })
+                        )
+                    )
+                );
+            }
+        </script>
+    </body>
+</html>

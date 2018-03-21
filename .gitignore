@@ -1,0 +1,4 @@
+public/tests/*
+!public/tests/180321_JR_62978437229b05781f445f2024bfab91/
+node_modules/
+.env
