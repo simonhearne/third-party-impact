@@ -1,4 +1,3 @@
-const heatmap = require('./heatmap');
 const wptutils = require('./wpt-utils');
 const express = require('express');
 const path = require('path');

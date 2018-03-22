@@ -15,7 +15,6 @@
     "url": "https://github.com/simonhearne/third-party-impact.git"
   },
   "dependencies": {
-    "adm-zip": "^0.4.7",
     "body-parser": "^1.18.2",
     "compression": "^1.7.2",
     "express": "^4.16.2",

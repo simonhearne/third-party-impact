@@ -1,8 +1,6 @@
 const path = require('path');
 const fs = require('fs-extra');
 const webpagetest = require('webpagetest');
-const heatmap = require('./heatmap');
-const admzip = require('adm-zip');
 
 const {NODE_ENV} = process.env;
 if (NODE_ENV == "development") {
