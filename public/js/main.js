@@ -471,6 +471,7 @@ const renderResults = function() {
         console.log(wpt.tests);
         sortResults("SpeedIndex","asc");
         renderResultsTable();
+        hideWaiting();
     });
 };
 
@@ -557,6 +558,7 @@ const statusLoop = function() {
             renderResultsLinks();
         } else {
             renderStatus();
+            hideWaiting();
             setTimeout(statusLoop,2000);
         }
     });

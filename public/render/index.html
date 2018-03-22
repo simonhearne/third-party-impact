@@ -10,7 +10,7 @@
         <script src="../js/main.js" defer></script>
     </head>
     <body>
-        <div id="container">
+        <div id="container" class="wide">
             <form id="domain-selection" action="/submitDomains" method="POST">
                 <input type="hidden" name="original-testid" id="original-testid">
                 <input type="hidden" name="original-url" id="original-url">
@@ -52,7 +52,6 @@
                     .then(() => getBlocks(window.wpt.testId)
                         .then(() => updateStatus()
                             .then(() => {
-                                document.getElementById("waiting").classList.add("hidden");
                                 statusLoop();
                             })
                         )
