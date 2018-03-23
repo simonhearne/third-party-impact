@@ -43,7 +43,7 @@ app.listen(port, () => {
             });
         }
     });
-    app.get('/result', (req,res) => {
+    app.get('/results', (req,res) => {
         if (!req.query.test) {
             res.json(errMsg);
         } else {
@@ -104,7 +104,7 @@ app.listen(port, () => {
                     if (err) {
                         throw new Error(err);
                     }
-                    res.redirect("/render/?test="+req.body["original-testid"]);
+                    res.redirect("/result/?test="+req.body["original-testid"]);
                 }
             );
         });

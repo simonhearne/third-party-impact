@@ -185,7 +185,7 @@ const getParameterByName = function(name, url) {
 const getTestInfo = function(test=null,requests=1) {
     return new Promise((resolve,reject) => {
         testId = (test==null?window.heatmap.testId:test);
-        let url = `/result?test=${testId}&requests=${requests}`;
+        let url = `/results?test=${testId}&requests=${requests}`;
         fetch(url)
             .then((res) => {
                 if (!res.ok) {

@@ -75,7 +75,8 @@ button#button-submit-id {
 }
 .subtitle {
     text-align:center;
-    font-size: 85%;
+    font-size: 100%;
+    margin-top: -10;
 }
 .subtitle .high {
     margin-top: -15px;
@@ -153,7 +154,7 @@ table.domains th:not(:first-child) {
     text-overflow: clip;
 }
 table.slim {
-    font-size:80%;
+    font-size:90%;
     border-collapse: collapse;
 }
 table.slim td {
@@ -317,6 +318,8 @@ div.center {
 button#run {
     user-select: none;
     box-shadow: 0px 0px 5px 0px red;
+    width: 90%;
+    margin-bottom: 10px;
 }
 span.change {
     font-size: 80%;

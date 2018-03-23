@@ -19,21 +19,22 @@
             <div id="header">
                 <h1 id="home-link" class="clicky">Third-Party Impact Analysis</a></h1>
                 <h3>Results for <span id="test-url"></span></h3>
-                <p class="subtitle">You can close this tab and come back later!</p>
+                <p class="subtitle">You can close this tab and come back later!<br>
+                The results below show the impact of each third-party domain on the performance measurements of your page.<br>
+                The results are ordered by the greatest impact on perceived performance (measured by Speed Index).</p>
             </div>
             <div id="body">
                 <div id="tables">
                     <table id="status" class="slim wide alt-rows hidden">
                         <tr><th>Blocked Domains</th><th>Test Status</th></tr>
                     </table>
-                    <table id="results" class="slim wide alt-rows hidden">
+                    <table id="results" class="slim wide alt-rows hover hidden">
                     </table>
                 </div>
-                <div id="links"></div>
             </div>
-            <p class="subtitle"><span id="test-from"></span> on <span id="test-run-at"></span></p>
             <div id="footer">
-                Made by <a href="https://twitter.com/simonhearne">Simon</a> • Fork on <a href="https://github.com/simonhearne/third-party-impact">GitHub</a>
+                <p><span id="links"></span><br/><span id="test-from"></span> on <span id="test-run-at"></span></p>
+                <p>Made by <a href="https://twitter.com/simonhearne">Simon</a> • Fork on <a href="https://github.com/simonhearne/third-party-impact">GitHub</a></p>
             </div>
             </form>
         </div>
@@ -44,7 +45,7 @@
                 window.wpt = {testId:getParameterByName('test')};
                 if (window.wpt.testId==undefined) {
                     alert("No test parameter provided, maybe a bad link?\nSending you back to the homepage.");
-                    window.location.href = window.location.href.substring(0,window.location.href.lastIndexOf("/")).replace("render","");
+                    window.location.href = window.location.href.substring(0,window.location.href.lastIndexOf("/")).replace("result","");
                 }
                 document.getElementById("home-link").addEventListener("click",()=>{window.location = "/" });
                 getTestInfo(window.wpt.testId)
