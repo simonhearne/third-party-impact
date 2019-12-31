@@ -94,9 +94,8 @@ submitBlockTests = function(data) {
         data["selected-domains"] = [data["selected-domains"]];
     }
     
-    console.log(data["selected-domains"]);
-    var combi = combinate(data["selected-domains"]);
-    console.log(combi);
+    //var combi = combinate(data["selected-domains"]);
+    var combi = data["selected-domains"];
     var tests = [];
     combi.forEach((domain) => {
         tests.push(submitBlockTest(data["original-url"],domain,server,data.location,null));

@@ -38,7 +38,7 @@ app.listen(port, () => {
             res.json(errMsg);
         } else {
             let testId = req.query.test;
-            wptutils.getStatus(testId,server).then((response)=>{
+            wptutils.getResultSummary(testId,server).then((response)=>{
                 res.json(response);
             });
         }
@@ -47,8 +47,6 @@ app.listen(port, () => {
         if (!req.query.test) {
             res.json(errMsg);
         } else {
-            console.log(req.query);
-            console.log(req.query.requests);
             server = (req.query.server?req.query.server:defaultServer);
             requests = (req.query.requests?parseInt(req.query.requests):1);
             wptutils.getResultSummary(req.query.test,server,requests).then((result) => {
@@ -82,9 +80,7 @@ app.listen(port, () => {
             res.json(errMsg);    
         }
         server = (req.body.server?req.body.server:defaultServer);
-        console.log("submitting tests for",req.body);
         wptutils.submitBlockTests(req.body).then((response) => {
-            console.log("tests submitted");
             let testDir = path.join('public','tests');
             let dir = path.join(testDir,req.body["original-testid"]);
             if (fs.existsSync(dir)){

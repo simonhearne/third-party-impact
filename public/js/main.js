@@ -26,11 +26,18 @@ function statusUpdate(opts) {
     elem.innerHTML = message;
 }
 
+function clearOptions(selectElem) {
+    for(var i = selectElem.options.length - 1 ; i >= 0 ; i--)
+    {
+        selectElem.remove(i);
+    }
+}
+
 function parseLocations(locationData,selectElem) {
     let locations = locationData.response.data.location;
     groups = {};
     locations.forEach((location)=>{
-        let group = location.group;
+        let group = location.group || location.labelShort;
         if (group !== undefined) {
             if (!(group in groups)) {
                 groups[group] = {"name":group,"locations":[]};
@@ -41,6 +48,7 @@ function parseLocations(locationData,selectElem) {
     window.wpt.locations = locations;
     window.wpt.groups = groups;
     let select = document.getElementById(selectElem);
+    clearOptions(select);
     for (var group in groups) {
         let optgroup = document.createElement('optgroup');
         optgroup.label = group;
@@ -559,7 +567,7 @@ const statusLoop = function() {
         } else {
             renderStatus();
             hideWaiting();
-            setTimeout(statusLoop,2000);
+            setTimeout(statusLoop,10000);
         }
     });
 };
