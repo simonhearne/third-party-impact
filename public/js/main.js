@@ -26,10 +26,10 @@ function statusUpdate(opts) {
     elem.innerHTML = message;
 }
 
-function clearOptions(selectElem) {
-    for(var i = selectElem.options.length - 1 ; i >= 0 ; i--)
+function clearChildren(selectElem) {
+    for(var i = selectElem.childElementCount - 1 ; i >= 0 ; i--)
     {
-        selectElem.remove(i);
+        selectElem.removeChild(selectElem.childNodes[i]);
     }
 }
 
@@ -48,25 +48,28 @@ function parseLocations(locationData,selectElem) {
     window.wpt.locations = locations;
     window.wpt.groups = groups;
     let select = document.getElementById(selectElem);
-    clearOptions(select);
+    clearChildren(select);
     for (var group in groups) {
         let optgroup = document.createElement('optgroup');
         optgroup.label = group;
         for (var i in groups[group].locations) {
             let location = groups[group].locations[i];
-            if (location.status == "OK") {
-                let opt = document.createElement('option');
-                opt.id = location.id;
-                if (opt.id == "Dulles") {
-                    opt.selected = "selected";
-                }
-                opt.text = location.Label;
-                let pendTests = location.PendingTests.Total;
-                if (pendTests > 5) {
-                    opt.text += ` - ${pendTests} queued tests`;
-                }
-                optgroup.appendChild(opt);
+            let opt = document.createElement('option');
+            opt.id = location.id;
+            if (opt.id == "Dulles") {
+                opt.selected = "selected";
             }
+            opt.text = location.Label;
+            let pendTests = location.PendingTests.Total;
+            if (pendTests > 5) {
+                opt.text += ` - ${pendTests} queued tests`;
+            }
+            if (!location.status) {
+                opt.text += ` - tester status unknown`;
+            } else if (location.status.toLowerCase() !== 'ok') {
+                opt.text += ` - tester status not ok: ${location.status}`;
+            }
+            optgroup.appendChild(opt);
         }
         select.add(optgroup);
     }
